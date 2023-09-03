@@ -1,6 +1,7 @@
 package com.tinnovakovic.videostreamer.di
 
-import com.tinnovakovic.videostreamer.TemplateApi
+import com.google.gson.Gson
+import com.tinnovakovic.videostreamer.data.TemplateApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,14 +19,14 @@ object ApiModule {
     //TODO: Update API Template As Required
     @Provides
     @Singleton
-    fun providesRetrofit(okHttpClient: OkHttpClient.Builder): TemplateApi {
+    fun providesRetrofit(okHttpClient: OkHttpClient.Builder, gsonConverterFactory: GsonConverterFactory): TemplateApi {
         return Retrofit.Builder()
             .baseUrl("templateApi")
             .client(
                 okHttpClient
                     .build()
             )
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(gsonConverterFactory)
             .build()
             .create(TemplateApi::class.java)
     }
@@ -36,4 +37,18 @@ object ApiModule {
         return OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
     }
+
+    @Provides
+    @Singleton
+    fun providesGsonConverter(): GsonConverterFactory {
+        return GsonConverterFactory.create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideGson(): Gson {
+        return Gson()
+    }
+
+
 }

@@ -1,4 +1,4 @@
-package com.tinnovakovic.videostreamer
+package com.tinnovakovic.videostreamer.data
 
 import retrofit2.http.GET
 import retrofit2.http.Query
