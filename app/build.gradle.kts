@@ -69,6 +69,7 @@ dependencies {
     //Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.47")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation("androidx.compose.material3:material3:1.1.1")
     //Dagger Hilt Annotation Processor
     kapt("com.google.dagger:hilt-compiler:2.47")
 
