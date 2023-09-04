@@ -8,10 +8,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.tinnovakovic.videostreamer.ui.HomeScreen
-import com.tinnovakovic.videostreamer.ui.HomeViewModel
-import com.tinnovakovic.videostreamer.ui.LessonScreen
-import com.tinnovakovic.videostreamer.ui.LessonViewModel
+import com.tinnovakovic.videostreamer.ui.home.HomeScreen
+import com.tinnovakovic.videostreamer.ui.home.HomeViewModel
+import com.tinnovakovic.videostreamer.ui.lesson.LessonScreen
+import com.tinnovakovic.videostreamer.ui.lesson.LessonViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -31,7 +31,7 @@ class HomeActivity : AppCompatActivity() {
                     composable(Destination.Home.name) {
                         HomeScreen(viewModel = hiltViewModel<HomeViewModel>(), navController)
                     }
-                    composable(Destination.Lesson.name) {
+                    composable("${Destination.Lesson.name}/{subjectTitle}") {
                         LessonScreen(viewModel = hiltViewModel<LessonViewModel>(), navController)
                     }
                 }

@@ -1,4 +1,4 @@
-package com.tinnovakovic.videostreamer.ui
+package com.tinnovakovic.videostreamer.ui.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,7 +17,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.tinnovakovic.videostreamer.composables.UiElement.CircularItem
 import com.tinnovakovic.videostreamer.data.models.Subject
-import com.tinnovakovic.videostreamer.ui.HomeContract.*
+import com.tinnovakovic.videostreamer.ui.home.HomeContract.*
 
 @Composable
 fun HomeScreen(viewModel: ViewModel, navController: NavHostController) {

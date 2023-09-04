@@ -1,13 +1,13 @@
-package com.tinnovakovic.videostreamer.ui
+package com.tinnovakovic.videostreamer.ui.home
 
 import androidx.navigation.NavController
+import com.tinnovakovic.videostreamer.base.BaseViewModel
 import com.tinnovakovic.videostreamer.base.BaseUiEvent
 import com.tinnovakovic.videostreamer.base.BaseUiState
-import com.tinnovakovic.videostreamer.base.BaseViewModel
 import com.tinnovakovic.videostreamer.data.models.Subject
 import javax.annotation.concurrent.Immutable
 
-interface LessonContract {
+interface HomeContract {
 
     abstract class ViewModel: BaseViewModel<UiEvents, UiState>()
 
@@ -19,8 +19,6 @@ interface LessonContract {
     ) : BaseUiState {}
 
     sealed class UiEvents: BaseUiEvent {
-        data class SubjectClicked(val subject: Subject) : UiEvents()
-        data class UpClicked(val navController: NavController) : UiEvents()
-
+        data class SubjectClicked(val subject: Subject, val navController: NavController) : UiEvents()
     }
 }

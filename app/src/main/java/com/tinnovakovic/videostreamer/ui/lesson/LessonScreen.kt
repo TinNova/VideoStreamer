@@ -1,4 +1,4 @@
-package com.tinnovakovic.videostreamer.ui
+package com.tinnovakovic.videostreamer.ui.lesson
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -31,7 +31,7 @@ private fun LessonScreenContent(
     Scaffold(
         topBar = {
             UiElement.LargeTopAppBar(
-                label = uiState.subjects[0].title,
+                label = uiState.subjectTitle,
                 upIcon = Icons.Default.ArrowBack,
                 upIconAction = { uiAction(LessonContract.UiEvents.UpClicked(navController)) }
             )

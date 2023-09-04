@@ -1,4 +1,4 @@
-package com.tinnovakovic.videostreamer.ui
+package com.tinnovakovic.videostreamer.ui.home
 
 import android.util.Log
 import com.tinnovakovic.videostreamer.Destination
@@ -20,7 +20,7 @@ class HomeViewModel @Inject constructor(private val streamerRepo: StreamerRepo) 
     override fun onUiEvent(event: HomeContract.UiEvents) {
         when (event) {
             is HomeContract.UiEvents.SubjectClicked -> {
-                event.navController.navigate(Destination.Lesson.name)
+                event.navController.navigate("${Destination.Lesson.name}/${event.subject.title}")
                 Log.w("Subject Clicked: ", "${event.subject.title} Id = ${event.subject.id}")
             }
         }
