@@ -28,11 +28,21 @@ class HomeActivity : AppCompatActivity() {
                     navController = navController,
                     startDestination = Destination.Home.name
                 ) {
-                    composable(Destination.Home.name) {
-                        HomeScreen(viewModel = hiltViewModel<HomeViewModel>(), navController)
+                    composable(route = Destination.Home.name) {
+                        HomeScreen(
+                            viewModel = hiltViewModel<HomeViewModel>(),
+                            onNavigateToLessonScreen = { subjectTitle ->
+                                navController.navigate("${Destination.Lesson.name}/$subjectTitle")
+                            }
+                        )
                     }
-                    composable("${Destination.Lesson.name}/{subjectTitle}") {
-                        LessonScreen(viewModel = hiltViewModel<LessonViewModel>(), navController)
+                    composable(route = "${Destination.Lesson.name}/{subjectTitle}") {
+                        LessonScreen(
+                            viewModel = hiltViewModel<LessonViewModel>(),
+                            onNavigateToHomeScreen = {
+                                navController.navigate(Destination.Home.name)
+                            }
+                        )
                     }
                 }
             }

@@ -9,24 +9,27 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
 import com.tinnovakovic.videostreamer.composables.UiElement.CircularItem
 import com.tinnovakovic.videostreamer.data.models.Subject
 import com.tinnovakovic.videostreamer.ui.home.HomeContract.*
+import com.tinnovakovic.videostreamer.ui.home.preview.HomeScreenContentPreviewParameter
 
 @Composable
-fun HomeScreen(viewModel: ViewModel, navController: NavHostController) {
+fun HomeScreen(viewModel: ViewModel, onNavigateToLessonScreen: (String) -> Unit) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     HomeScreenContent(
         uiState = uiState,
         uiAction = viewModel::onUiEvent,
-        navController = navController
+        onNavigateToLessonScreen = onNavigateToLessonScreen
     )
 }
 
@@ -34,20 +37,24 @@ fun HomeScreen(viewModel: ViewModel, navController: NavHostController) {
 private fun HomeScreenContent(
     uiState: UiState,
     uiAction: (UiEvents) -> Unit,
-    navController: NavHostController
+    onNavigateToLessonScreen: (String) -> Unit
 ) {
 
-    Column {
-        CircularProfileImageList(uiState.subjects, uiAction, navController)
+    if (uiState.onSubjectClickedName != null) {
+        onNavigateToLessonScreen.invoke(uiState.onSubjectClickedName)
     }
 
+    Scaffold { paddingValues ->
+        Column(modifier = Modifier.padding(paddingValues)) {
+            CircularProfileImageList(uiState.subjects, uiAction)
+        }
+    }
 }
 
 @Composable
 fun CircularProfileImageList(
     subjects: List<Subject>,
     uiAction: (UiEvents) -> Unit,
-    navController: NavHostController
 ) {
     LazyVerticalGrid(
         modifier = Modifier
@@ -61,8 +68,20 @@ fun CircularProfileImageList(
             CircularItem(
                 googleIcon = Icons.Default.Add,
                 text = subject.title,
-                onClick = { uiAction(UiEvents.SubjectClicked(subject, navController)) }
+                onClick = { uiAction(UiEvents.SubjectClicked(subject)) }
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun HomeScreenContentPreview(
+    @PreviewParameter(HomeScreenContentPreviewParameter::class) uiState: HomeContract.UiState
+) {
+    HomeScreenContent(
+        uiState = uiState,
+        uiAction = {},
+        onNavigateToLessonScreen = {},
+    )
 }

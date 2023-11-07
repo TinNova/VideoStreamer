@@ -1,6 +1,5 @@
 package com.tinnovakovic.videostreamer.ui.home
 
-import androidx.navigation.NavController
 import com.tinnovakovic.videostreamer.base.BaseViewModel
 import com.tinnovakovic.videostreamer.base.BaseUiEvent
 import com.tinnovakovic.videostreamer.base.BaseUiState
@@ -14,11 +13,12 @@ interface HomeContract {
     @Immutable
     data class UiState(
         val subjects: List<Subject>,
-        val cachedCurrentVideo: String? //CachedVideo object
+        val cachedCurrentVideo: String?, //CachedVideo object
+        val onSubjectClickedName: String?,
 
-    ) : BaseUiState {}
+        ) : BaseUiState {}
 
     sealed class UiEvents: BaseUiEvent {
-        data class SubjectClicked(val subject: Subject, val navController: NavController) : UiEvents()
+        data class SubjectClicked(val subject: Subject) : UiEvents()
     }
 }

@@ -31,7 +31,7 @@ class LessonViewModel @Inject constructor(
     override fun onUiEvent(event: LessonContract.UiEvents) {
         when (event) {
             is LessonContract.UiEvents.UpClicked -> {
-                event.navController.navigateUp()
+                updateUiState { it.copy(upNavigateClicked = true) }
             }
         }
     }
@@ -41,7 +41,8 @@ class LessonViewModel @Inject constructor(
         fun initialUiState() = LessonContract.UiState(
             subjectTitle = "",
             lessons = emptyList(),
-            cachedCurrentVideo = null
+            cachedCurrentVideo = null,
+            upNavigateClicked = false
         )
     }
 }

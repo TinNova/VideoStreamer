@@ -9,17 +9,17 @@ import javax.annotation.concurrent.Immutable
 
 interface LessonContract {
 
-    abstract class ViewModel: BaseViewModel<UiEvents, UiState>()
+    abstract class ViewModel : BaseViewModel<UiEvents, UiState>()
 
     @Immutable
     data class UiState(
         val subjectTitle: String,
         val lessons: List<Lesson>,
-        val cachedCurrentVideo: String? //Should be a CachedVideo object
+        val cachedCurrentVideo: String?, //Should be a CachedVideo object
+        val upNavigateClicked: Boolean,
     ) : BaseUiState {}
 
-    sealed class UiEvents: BaseUiEvent {
-        data class UpClicked(val navController: NavController) : UiEvents()
-
+    sealed class UiEvents : BaseUiEvent {
+        object UpClicked : UiEvents()
     }
 }
