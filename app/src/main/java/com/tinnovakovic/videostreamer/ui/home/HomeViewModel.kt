@@ -2,6 +2,7 @@ package com.tinnovakovic.videostreamer.ui.home
 
 import android.util.Log
 import com.tinnovakovic.videostreamer.data.StreamerRepo
+import com.tinnovakovic.videostreamer.data.StreamerRepoImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject

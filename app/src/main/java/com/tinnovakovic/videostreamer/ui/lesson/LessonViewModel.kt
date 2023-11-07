@@ -1,8 +1,6 @@
 package com.tinnovakovic.videostreamer.ui.lesson
 
 import androidx.lifecycle.SavedStateHandle
-import com.tinnovakovic.videostreamer.data.StreamerRepo
-import com.tinnovakovic.videostreamer.data.models.Subject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
