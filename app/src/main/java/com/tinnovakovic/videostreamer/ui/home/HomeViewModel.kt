@@ -20,8 +20,7 @@ class HomeViewModel @Inject constructor(private val streamerRepo: StreamerRepo) 
     override fun onUiEvent(event: HomeContract.UiEvents) {
         when (event) {
             is HomeContract.UiEvents.SubjectClicked -> {
-                Log.w("Subject Clicked: ", "${event.subject.title} Id = ${event.subject.id}")
-                updateUiState { it.copy(onSubjectClickedName = event.subject.title) }
+                Log.w("HomeViewModel: ", "Subject Clicked: ${event.subject.title} Id = ${event.subject.id}")
             }
         }
     }
@@ -31,7 +30,6 @@ class HomeViewModel @Inject constructor(private val streamerRepo: StreamerRepo) 
         fun initialUiState() = HomeContract.UiState(
             subjects = emptyList(),
             cachedCurrentVideo = null,
-            onSubjectClickedName = null
         )
     }
 }

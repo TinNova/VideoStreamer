@@ -6,9 +6,17 @@ plugins {
 }
 
 
+
 android {
     namespace = "com.tinnovakovic.videostreamer"
     compileSdk = 34
+
+
+    testOptions {
+        unitTests.all {
+            it.useJUnitPlatform()
+        }
+    }
 
     defaultConfig {
         applicationId = "com.tinnovakovic.videostreamer"

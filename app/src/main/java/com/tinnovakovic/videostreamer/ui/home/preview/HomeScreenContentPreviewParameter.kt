@@ -9,7 +9,6 @@ class HomeScreenContentPreviewParameter : PreviewParameterProvider<HomeContract.
         HomeContract.UiState(
             subjects = getSubjects(),
             cachedCurrentVideo = null,
-            onSubjectClickedName = null
         ),
     )
 

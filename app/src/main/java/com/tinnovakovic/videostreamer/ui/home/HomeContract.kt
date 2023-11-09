@@ -14,8 +14,6 @@ interface HomeContract {
     data class UiState(
         val subjects: List<Subject>,
         val cachedCurrentVideo: String?, //CachedVideo object
-        val onSubjectClickedName: String?,
-
         ) : BaseUiState {}
 
     sealed class UiEvents: BaseUiEvent {

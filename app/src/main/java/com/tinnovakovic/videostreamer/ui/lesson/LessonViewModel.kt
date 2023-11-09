@@ -1,5 +1,6 @@
 package com.tinnovakovic.videostreamer.ui.lesson
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -9,7 +10,7 @@ import javax.inject.Inject
 class LessonViewModel @Inject constructor(
     private val getLessonsUseCase: GetLessonsUseCase,
     savedStateHandle: SavedStateHandle,
-    ) : LessonContract.ViewModel() {
+) : LessonContract.ViewModel() {
 
     private val subjectTitle: String = checkNotNull(savedStateHandle["subjectTitle"])
     override val _uiState: MutableStateFlow<LessonContract.UiState> =
@@ -29,11 +30,10 @@ class LessonViewModel @Inject constructor(
     override fun onUiEvent(event: LessonContract.UiEvents) {
         when (event) {
             is LessonContract.UiEvents.UpClicked -> {
-                updateUiState { it.copy(upNavigateClicked = true) }
+                Log.w("LessonViewModel: ", "Up Button Clicked")
             }
         }
     }
-
 
     private companion object {
         fun initialUiState() = LessonContract.UiState(

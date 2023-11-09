@@ -40,13 +40,9 @@ private fun HomeScreenContent(
     onNavigateToLessonScreen: (String) -> Unit
 ) {
 
-    if (uiState.onSubjectClickedName != null) {
-        onNavigateToLessonScreen.invoke(uiState.onSubjectClickedName)
-    }
-
     Scaffold { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
-            CircularProfileImageList(uiState.subjects, uiAction)
+            CircularProfileImageList(uiState.subjects, uiAction, onNavigateToLessonScreen)
         }
     }
 }
@@ -55,6 +51,7 @@ private fun HomeScreenContent(
 fun CircularProfileImageList(
     subjects: List<Subject>,
     uiAction: (UiEvents) -> Unit,
+    onNavigateToLessonScreen: (String) -> Unit,
 ) {
     LazyVerticalGrid(
         modifier = Modifier
@@ -68,7 +65,10 @@ fun CircularProfileImageList(
             CircularItem(
                 googleIcon = Icons.Default.Add,
                 text = subject.title,
-                onClick = { uiAction(UiEvents.SubjectClicked(subject)) }
+                onClick = {
+                    uiAction(UiEvents.SubjectClicked(subject))
+                    onNavigateToLessonScreen.invoke(subject.title)
+                }
             )
         }
     }
