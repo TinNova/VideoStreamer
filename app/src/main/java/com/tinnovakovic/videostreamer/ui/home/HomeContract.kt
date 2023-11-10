@@ -3,6 +3,7 @@ package com.tinnovakovic.videostreamer.ui.home
 import com.tinnovakovic.videostreamer.base.BaseViewModel
 import com.tinnovakovic.videostreamer.base.BaseUiEvent
 import com.tinnovakovic.videostreamer.base.BaseUiState
+import com.tinnovakovic.videostreamer.data.models.ScreenParent
 import com.tinnovakovic.videostreamer.data.models.Subject
 import javax.annotation.concurrent.Immutable
 
@@ -14,9 +15,14 @@ interface HomeContract {
     data class UiState(
         val subjects: List<Subject>,
         val cachedCurrentVideo: String?, //CachedVideo object
+        val screenParent: ScreenParent?,
+        val inputError: Boolean,
         ) : BaseUiState {}
 
     sealed class UiEvents: BaseUiEvent {
         data class SubjectClicked(val subject: Subject) : UiEvents()
+        object SubmitClicked : UiEvents()
+        data class InputFieldUpdated(val input: String) : UiEvents()
+
     }
 }
