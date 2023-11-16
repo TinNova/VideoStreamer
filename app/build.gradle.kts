@@ -11,6 +11,9 @@ android {
     namespace = "com.tinnovakovic.videostreamer"
     compileSdk = 34
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.2"
+    }
 
     testOptions {
         unitTests.all {
@@ -57,13 +60,14 @@ dependencies {
     implementation("com.google.android.material:material:1.9.0")
 
     //Jetpack Compose
-    implementation("androidx.compose.ui:ui:1.5.0")
-    implementation("androidx.compose.ui:ui-tooling:1.5.0")
-    implementation("androidx.compose.ui:ui-unit:1.5.0")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.5.0")
+    implementation("androidx.compose.compiler:compiler:1.5.4")
+    implementation("androidx.compose.ui:ui:1.5.4")
+    implementation("androidx.compose.ui:ui-tooling:1.5.4")
+    implementation("androidx.compose.ui:ui-unit:1.5.4")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.5.4")
     //Jetpack Compose Material Design Components
-    implementation("androidx.compose.material:material:1.5.0")
-    implementation("androidx.compose.material:material-icons-extended:1.5.0")
+    implementation("androidx.compose.material:material:1.5.4")
+    implementation("androidx.compose.material:material-icons-extended:1.5.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
     implementation("androidx.compose.foundation:foundation:1.5.0")
@@ -75,11 +79,11 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
 
     //Dagger Hilt
-    implementation("com.google.dagger:hilt-android:2.47")
+    implementation("com.google.dagger:hilt-android:2.48")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     implementation("androidx.compose.material3:material3:1.1.1")
     //Dagger Hilt Annotation Processor
-    kapt("com.google.dagger:hilt-compiler:2.47")
+    kapt("com.google.dagger:hilt-compiler:2.48")
 
     //Coroutines Core Package
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")

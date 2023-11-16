@@ -1,24 +1,21 @@
 package com.tinnovakovic.videostreamer.ui.home
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.tinnovakovic.videostreamer.composables.UiElement.CircularItem
-import com.tinnovakovic.videostreamer.data.models.Subject
+import com.tinnovakovic.videostreamer.data.models.Component
 import com.tinnovakovic.videostreamer.ui.home.HomeContract.*
 import com.tinnovakovic.videostreamer.ui.home.preview.HomeScreenContentPreviewParameter
 
@@ -29,7 +26,6 @@ fun HomeScreen(viewModel: ViewModel, onNavigateToLessonScreen: (String) -> Unit)
     HomeScreenContent(
         uiState = uiState,
         uiAction = viewModel::onUiEvent,
-        onNavigateToLessonScreen = onNavigateToLessonScreen
     )
 }
 
@@ -37,40 +33,74 @@ fun HomeScreen(viewModel: ViewModel, onNavigateToLessonScreen: (String) -> Unit)
 private fun HomeScreenContent(
     uiState: UiState,
     uiAction: (UiEvents) -> Unit,
-    onNavigateToLessonScreen: (String) -> Unit
 ) {
+
+    val value: MutableState<MutableList<String>> = remember {
+        mutableStateOf(mutableListOf<String>())
+    }
+
+    value.value.add(0, "")
 
     Scaffold { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
-            CircularProfileImageList(uiState.subjects, uiAction, onNavigateToLessonScreen)
+
+            uiState.components.forEach { component ->
+                Loop(component, uiAction, value)
+            }
+
         }
     }
 }
 
 @Composable
-fun CircularProfileImageList(
-    subjects: List<Subject>,
-    uiAction: (UiEvents) -> Unit,
-    onNavigateToLessonScreen: (String) -> Unit,
-) {
-    LazyVerticalGrid(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        columns = GridCells.Adaptive(minSize = 64.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        items(subjects) { subject ->
-            CircularItem(
-                googleIcon = Icons.Default.Add,
-                text = subject.title,
-                onClick = {
-                    uiAction(UiEvents.SubjectClicked(subject))
-                    onNavigateToLessonScreen.invoke(subject.title)
-                }
-            )
+private fun Loop(component: Component, uiAction: (UiEvents) -> Unit, value: MutableState<MutableList<String>>) {
+    when (component) {
+        is Component.Container -> {
+            component.component.forEach {
+                Loop(it, uiAction, value)
+            }
         }
+        is Component.Button -> ButtonComponent(component = component, uiAction, value)
+        is Component.Input -> InputComponent(component = component, uiAction, value)
+        is Component.Text -> TextComponent(component = component)
+    }
+}
+
+@Composable
+fun TextComponent(component: Component.Text) {
+    Text(text = component.text)
+}
+
+@Composable
+fun InputComponent(
+    component: Component.Input,
+    uiAction: (UiEvents) -> Unit,
+    value: MutableState<MutableList<String>>
+) {
+
+    TextField(value = value.value[0],
+        onValueChange = {
+            value.value[0] = it
+        }, placeholder = { Text(text = component.hint) })
+
+
+//        uiAction(
+//            UiEvents.InputFieldUpdated(
+//                inputComponent = component,
+//                newValue = value = it
+//            )
+//        )
+
+}
+
+@Composable
+fun ButtonComponent(
+    component: Component.Button,
+    uiAction: (UiEvents) -> Unit,
+    value: MutableState<MutableList<String>>
+) {
+    OutlinedButton(onClick = { uiAction(UiEvents.ButtonClicked(inputValue = value.value)) }) {
+        Text(text = component.text)
     }
 }
 
@@ -82,6 +112,5 @@ fun HomeScreenContentPreview(
     HomeScreenContent(
         uiState = uiState,
         uiAction = {},
-        onNavigateToLessonScreen = {},
     )
 }
