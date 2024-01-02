@@ -8,10 +8,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tinnovakovic.videostreamer.composables.UiElement
+import com.tinnovakovic.videostreamer.ui.lesson.LessonContract.UiState
 
 @Composable
-fun LessonScreen(viewModel: LessonContract.ViewModel, onNavigateToHomeScreen: () -> Unit) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+fun LessonScreen(uiState: UiState, viewModel: LessonContract.ViewModel, onNavigateToHomeScreen: () -> Unit) {
 
     LessonScreenContent(
         uiState = uiState,
@@ -22,7 +22,7 @@ fun LessonScreen(viewModel: LessonContract.ViewModel, onNavigateToHomeScreen: ()
 
 @Composable
 private fun LessonScreenContent(
-    uiState: LessonContract.UiState,
+    uiState: UiState,
     uiAction: (LessonContract.UiEvents) -> Unit,
     onNavigateToHomeScreen: () -> Unit
 ) {
@@ -48,7 +48,7 @@ private fun LessonScreenContent(
 @Composable
 fun LessonScreenContentPreview() {
     LessonScreenContent(
-        uiState = LessonContract.UiState(
+        uiState = UiState(
             subjectTitle = "Maths",
             lessons = emptyList(),
             upNavigateClicked = false,

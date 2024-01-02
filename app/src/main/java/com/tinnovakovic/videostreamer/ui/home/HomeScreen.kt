@@ -23,8 +23,7 @@ import com.tinnovakovic.videostreamer.ui.home.HomeContract.*
 import com.tinnovakovic.videostreamer.ui.home.preview.HomeScreenContentPreviewParameter
 
 @Composable
-fun HomeScreen(viewModel: ViewModel, onNavigateToLessonScreen: (String) -> Unit) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+fun HomeScreen(uiState: UiState, viewModel: ViewModel, onNavigateToLessonScreen: (String) -> Unit) {
 
     HomeScreenContent(
         uiState = uiState,

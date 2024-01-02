@@ -3,15 +3,22 @@ package com.tinnovakovic.videostreamer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.tinnovakovic.videostreamer.ui.home.HomeScreen
 import com.tinnovakovic.videostreamer.ui.home.HomeViewModel
+import com.tinnovakovic.videostreamer.ui.home.homeScreen
 import com.tinnovakovic.videostreamer.ui.lesson.LessonScreen
 import com.tinnovakovic.videostreamer.ui.lesson.LessonViewModel
+import com.tinnovakovic.videostreamer.ui.lesson.lessonScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -23,27 +30,14 @@ class HomeActivity : AppCompatActivity() {
 
         setContent {
             val navController = rememberNavController()
-            Surface {
+            Scaffold { innerPadding ->
                 NavHost(
                     navController = navController,
-                    startDestination = Destination.Home.name
+                    startDestination = Destination.Home.name,
+                    Modifier.padding(innerPadding)
                 ) {
-                    composable(route = Destination.Home.name) {
-                        HomeScreen(
-                            viewModel = hiltViewModel<HomeViewModel>(),
-                            onNavigateToLessonScreen = { subjectTitle ->
-                                navController.navigate("${Destination.Lesson.name}/$subjectTitle")
-                            }
-                        )
-                    }
-                    composable(route = "${Destination.Lesson.name}/{subjectTitle}") {
-                        LessonScreen(
-                            viewModel = hiltViewModel<LessonViewModel>(),
-                            onNavigateToHomeScreen = {
-                                navController.navigate(Destination.Home.name)
-                            }
-                        )
-                    }
+                    homeScreen(navController)
+                    lessonScreen(navController)
                 }
             }
         }
