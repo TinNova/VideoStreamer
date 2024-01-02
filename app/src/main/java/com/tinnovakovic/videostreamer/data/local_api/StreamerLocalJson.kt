@@ -1,10 +1,9 @@
-package com.tinnovakovic.videostreamer.data
+package com.tinnovakovic.videostreamer.data.local_api
 
 import com.tinnovakovic.videostreamer.data.models.Lesson
 import com.tinnovakovic.videostreamer.data.models.Subject
 
-interface StreamerRepo {
-
+interface StreamerLocalJson {
     fun getSubjects(): List<Subject>
-    fun getLesson(): List<Lesson>
+    fun getLessons(): List<Lesson>
 }

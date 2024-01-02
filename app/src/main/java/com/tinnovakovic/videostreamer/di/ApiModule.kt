@@ -1,7 +1,7 @@
 package com.tinnovakovic.videostreamer.di
 
 import com.google.gson.Gson
-import com.tinnovakovic.videostreamer.data.TemplateApi
+import com.tinnovakovic.videostreamer.data.remote_api.TemplateApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

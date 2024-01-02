@@ -1,7 +1,7 @@
 package com.tinnovakovic.videostreamer.di
 
-import com.tinnovakovic.videostreamer.remote.StreamerApi
-import com.tinnovakovic.videostreamer.remote.StreamerApiImpl
+import com.tinnovakovic.videostreamer.data.local_api.StreamerLocalJson
+import com.tinnovakovic.videostreamer.data.local_api.StreamerLocalJsonImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,8 +15,8 @@ abstract class AppModule {
     @Binds
     @Singleton
     abstract fun bindStreamerApi(
-        streamerApiImpl: StreamerApiImpl
-    ): StreamerApi
+        streamerLocalJsonImpl: StreamerLocalJsonImpl
+    ): StreamerLocalJson
 
 
 }

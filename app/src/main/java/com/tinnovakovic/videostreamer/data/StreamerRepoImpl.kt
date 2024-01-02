@@ -2,12 +2,12 @@ package com.tinnovakovic.videostreamer.data
 
 import com.tinnovakovic.videostreamer.data.models.Lesson
 import com.tinnovakovic.videostreamer.data.models.Subject
-import com.tinnovakovic.videostreamer.remote.StreamerApi
+import com.tinnovakovic.videostreamer.data.local_api.StreamerLocalJson
 import javax.inject.Inject
 
-class StreamerRepoImpl @Inject constructor(private val streamerApi: StreamerApi): StreamerRepo {
+class StreamerRepo @Inject constructor(private val streamerLocalJson: StreamerLocalJson) {
 
-    override fun getSubjects(): List<Subject> = streamerApi.getSubjects()
-    override fun getLesson(): List<Lesson> = streamerApi.getLessons()
+    fun getSubjects(): List<Subject> = streamerLocalJson.getSubjects()
+    fun getLesson(): List<Lesson> = streamerLocalJson.getLessons()
 
 }
