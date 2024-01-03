@@ -11,12 +11,11 @@ import com.tinnovakovic.videostreamer.composables.UiElement
 import com.tinnovakovic.videostreamer.ui.lesson.LessonContract.UiState
 
 @Composable
-fun LessonScreen(uiState: UiState, viewModel: LessonContract.ViewModel, onNavigateToHomeScreen: () -> Unit) {
+fun LessonScreen(uiState: UiState, viewModel: LessonContract.ViewModel) {
 
     LessonScreenContent(
         uiState = uiState,
         uiAction = viewModel::onUiEvent,
-        onNavigateToHomeScreen = onNavigateToHomeScreen,
     )
 }
 
@@ -24,7 +23,6 @@ fun LessonScreen(uiState: UiState, viewModel: LessonContract.ViewModel, onNaviga
 private fun LessonScreenContent(
     uiState: UiState,
     uiAction: (LessonContract.UiEvents) -> Unit,
-    onNavigateToHomeScreen: () -> Unit
 ) {
 
     Scaffold(
@@ -34,7 +32,6 @@ private fun LessonScreenContent(
                 upIcon = Icons.Default.ArrowBack,
                 upIconAction = {
                     uiAction(LessonContract.UiEvents.UpClicked)
-                    onNavigateToHomeScreen.invoke()
                 }
             )
 
@@ -55,6 +52,5 @@ fun LessonScreenContentPreview() {
             cachedCurrentVideo = null
         ),
         uiAction = {},
-        onNavigateToHomeScreen = {},
     )
 }

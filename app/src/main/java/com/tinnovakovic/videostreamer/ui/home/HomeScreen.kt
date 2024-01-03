@@ -16,19 +16,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tinnovakovic.videostreamer.composables.UiElement.CircularItem
 import com.tinnovakovic.videostreamer.data.models.Subject
 import com.tinnovakovic.videostreamer.ui.home.HomeContract.*
 import com.tinnovakovic.videostreamer.ui.home.preview.HomeScreenContentPreviewParameter
 
 @Composable
-fun HomeScreen(uiState: UiState, viewModel: ViewModel, onNavigateToLessonScreen: (String) -> Unit) {
+fun HomeScreen(uiState: UiState, viewModel: ViewModel) {
 
     HomeScreenContent(
         uiState = uiState,
         uiAction = viewModel::onUiEvent,
-        onNavigateToLessonScreen = onNavigateToLessonScreen
     )
 }
 
@@ -36,12 +34,11 @@ fun HomeScreen(uiState: UiState, viewModel: ViewModel, onNavigateToLessonScreen:
 private fun HomeScreenContent(
     uiState: UiState,
     uiAction: (UiEvents) -> Unit,
-    onNavigateToLessonScreen: (String) -> Unit
 ) {
 
     Scaffold { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
-            CircularProfileImageList(uiState.subjects, uiAction, onNavigateToLessonScreen)
+            CircularProfileImageList(uiState.subjects, uiAction)
         }
     }
 }
@@ -50,7 +47,6 @@ private fun HomeScreenContent(
 fun CircularProfileImageList(
     subjects: List<Subject>,
     uiAction: (UiEvents) -> Unit,
-    onNavigateToLessonScreen: (String) -> Unit,
 ) {
     LazyVerticalGrid(
         modifier = Modifier
@@ -66,7 +62,6 @@ fun CircularProfileImageList(
                 text = subject.title,
                 onClick = {
                     uiAction(UiEvents.SubjectClicked(subject))
-                    onNavigateToLessonScreen.invoke(subject.title)
                 }
             )
         }
@@ -81,6 +76,5 @@ fun HomeScreenContentPreview(
     HomeScreenContent(
         uiState = uiState,
         uiAction = {},
-        onNavigateToLessonScreen = {},
     )
 }

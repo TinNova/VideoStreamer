@@ -18,5 +18,4 @@ abstract class AppModule {
         streamerLocalJsonImpl: StreamerLocalJsonImpl
     ): StreamerLocalJson
 
-
 }

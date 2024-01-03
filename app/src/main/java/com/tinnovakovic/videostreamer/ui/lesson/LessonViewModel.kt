@@ -2,6 +2,8 @@ package com.tinnovakovic.videostreamer.ui.lesson
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
+import com.tinnovakovic.videostreamer.NavDirections
+import com.tinnovakovic.videostreamer.NavManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
@@ -9,6 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LessonViewModel @Inject constructor(
     private val getLessonsUseCase: GetLessonsUseCase,
+    private val navManager: NavManager,
     savedStateHandle: SavedStateHandle,
 ) : LessonContract.ViewModel() {
 
@@ -30,6 +33,7 @@ class LessonViewModel @Inject constructor(
     override fun onUiEvent(event: LessonContract.UiEvents) {
         when (event) {
             is LessonContract.UiEvents.UpClicked -> {
+                navManager.navigate(NavDirections.home)
                 Log.w("LessonViewModel: ", "Up Button Clicked")
             }
         }
