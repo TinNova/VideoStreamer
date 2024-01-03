@@ -52,21 +52,28 @@ android {
 
 dependencies {
 
+    val composeVersion = "1.5.0"
+    val lifecycleVersion = "2.6.1"
+    val retrofitVersion = "2.9.0"
+    val jUnitVersion = "5.7.2"
+    val mockkVersion = "1.12.2"
+
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
 
     //Jetpack Compose
-    implementation("androidx.compose.ui:ui:1.5.0")
-    implementation("androidx.compose.ui:ui-tooling:1.5.0")
-    implementation("androidx.compose.ui:ui-unit:1.5.0")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.5.0")
+    implementation("androidx.compose.ui:ui:$composeVersion")
+    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
+    implementation("androidx.compose.ui:ui-unit:$composeVersion")
+    implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
+    implementation("androidx.compose.material:material:$composeVersion")
+    implementation("androidx.compose.material:material-icons-extended:$composeVersion")
+    implementation("androidx.compose.foundation:foundation:$composeVersion")
+
     //Jetpack Compose Material Design Components
-    implementation("androidx.compose.material:material:1.5.0")
-    implementation("androidx.compose.material:material-icons-extended:1.5.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
-    implementation("androidx.compose.foundation:foundation:1.5.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion")
     implementation("androidx.activity:activity-compose:1.7.2")
     implementation("androidx.navigation:navigation-compose:2.7.1")
 
@@ -98,24 +105,22 @@ dependencies {
     //OkHttp Logs HTTP Requests & Responses
     implementation("com.squareup.okhttp3:logging-interceptor:3.10.0")
     //Retrofit A Type Safe Http Client For Android
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-
-
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 
     //// Testing Dependencies ////
 
     //Mockk Mocking For Kotlin
-    testImplementation("io.mockk:mockk:1.12.2")
+    testImplementation("io.mockk:mockk:$mockkVersion")
     //Mockk Mocking For Kotlin with Android
-    androidTestImplementation("io.mockk:mockk-android:1.12.2")
+    androidTestImplementation("io.mockk:mockk-android:$mockkVersion")
 
     //Junit5 For Writing Tests In Junit5
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     //Junit5 Core Package
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
     //Junit5 For Parameterised Tests
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:$jUnitVersion")
 
     //Coroutines Provides Utilities For Testing Coroutines
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
