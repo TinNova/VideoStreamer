@@ -9,12 +9,6 @@ import com.tinnovakovic.videostreamer.Destination
 
 fun NavGraphBuilder.homeScreen() {
     composable(route = Destination.Home.name) {
-        val viewModel = hiltViewModel<HomeViewModel>()
-        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-        HomeScreen(
-            uiState = uiState,
-            viewModel = viewModel,
-        )
+        HomeScreen()
     }
 }

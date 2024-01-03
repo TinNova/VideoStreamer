@@ -6,12 +6,15 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tinnovakovic.videostreamer.composables.UiElement
 import com.tinnovakovic.videostreamer.ui.lesson.LessonContract.UiState
 
 @Composable
-fun LessonScreen(uiState: UiState, viewModel: LessonContract.ViewModel) {
+fun LessonScreen() {
+    val viewModel = hiltViewModel<LessonViewModel>()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LessonScreenContent(
         uiState = uiState,
@@ -20,7 +23,7 @@ fun LessonScreen(uiState: UiState, viewModel: LessonContract.ViewModel) {
 }
 
 @Composable
-private fun LessonScreenContent(
+fun LessonScreenContent(
     uiState: UiState,
     uiAction: (LessonContract.UiEvents) -> Unit,
 ) {

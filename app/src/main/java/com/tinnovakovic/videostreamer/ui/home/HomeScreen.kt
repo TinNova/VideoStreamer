@@ -16,13 +16,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tinnovakovic.videostreamer.composables.UiElement.CircularItem
 import com.tinnovakovic.videostreamer.data.models.Subject
 import com.tinnovakovic.videostreamer.ui.home.HomeContract.*
 import com.tinnovakovic.videostreamer.ui.home.preview.HomeScreenContentPreviewParameter
 
 @Composable
-fun HomeScreen(uiState: UiState, viewModel: ViewModel) {
+fun HomeScreen() {
+    val viewModel = hiltViewModel<HomeViewModel>()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     HomeScreenContent(
         uiState = uiState,
@@ -31,7 +35,7 @@ fun HomeScreen(uiState: UiState, viewModel: ViewModel) {
 }
 
 @Composable
-private fun HomeScreenContent(
+fun HomeScreenContent(
     uiState: UiState,
     uiAction: (UiEvents) -> Unit,
 ) {
