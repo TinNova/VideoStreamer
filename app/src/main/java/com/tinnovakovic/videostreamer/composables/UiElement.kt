@@ -40,13 +40,13 @@ object UiElement {
                         .size(64.dp)
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.primary)
-                        .padding(8.dp)
                 )
             }
 
             // Text below the image
             Text(
                 text = text,
+                maxLines = 1,
                 style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.padding(top = 8.dp)
             )

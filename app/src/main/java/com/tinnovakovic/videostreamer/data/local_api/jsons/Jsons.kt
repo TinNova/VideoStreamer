@@ -2,6 +2,7 @@ package com.tinnovakovic.videostreamer.data.local_api.jsons
 
 object Jsons {
 
+
     const val lessons: String = "[\n" +
             "  {\n" +
             "    \"id\": 1,\n" +
@@ -50,6 +51,7 @@ object Jsons {
             "  }\n" +
             "]"
 
+
     const val subjects = "[\n" +
             "  {\n" +
             "    \"title\": \"Mathematics\",\n" +
@@ -88,4 +90,110 @@ object Jsons {
             "    \"id\": 9\n" +
             "  }\n" +
             "]"
+
+    data class Primer(
+        val screens: List<Screen>,
+        val events: List<Event>,
+    )
+
+    data class Screen(
+        val id: String,
+        val components: List<Component>
+    )
+
+    sealed class Component {
+
+        data class Container(
+            val type: String,
+            val components: List<Component>
+        ) : Component()
+
+        data class Text(
+            val type: String,
+            val text: String,
+        ) : Component()
+
+        data class Input(
+            val id: String,
+            val type: String,
+            val hint: String
+        ) : Component()
+
+        data class Button(
+            val type: String,
+            val text: String,
+            val onClick: String,
+        ) : Component()
+    }
+
+    data class Event(
+        val type: String,
+        val actions: List<Action>
+    )
+
+    data class Action(
+        val type: String,
+        val data: Data
+    )
+
+    data class Data(
+        val value: String
+    )
+
+    const val primer =
+        """{
+        "screens":[
+            {
+                "id":"start_screen",
+                "components":[
+                    {
+                        "type":"Container",
+                        "components":[
+                            {
+                                "type":"Container",
+                                "components":[
+                                    {
+                                        "type":"Text",
+                                        "text":"Pay with Ducks"
+                                    },
+                                    {
+                                        "type":"Text",
+                                        "text":"1. Go to your Ducks app to get your Duck code."
+                                    },
+                                    {
+                                        "type":"Text",
+                                        "text":"2. Paste your Duck code here."
+                                    },
+                                    {
+                                        "id":"duck-code",
+                                        "type":"Input",
+                                        "hint":"Enter Duck code"
+                                    }
+                                ]
+                            },
+                            {
+                                "type":"Button",
+                                "text":"Submit",
+                                "onClick":"SUBMIT"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+
+        "events": [
+            {
+                "type":"SUBMIT",
+                "actions":[
+                    {
+                        "type":"log",
+                        "data":{
+                            "value":"{{duck-code}}"
+                        }
+                    }
+                ]
+            }
+        ]
+    }"""
 }

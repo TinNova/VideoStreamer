@@ -8,7 +8,7 @@ class HomeScreenContentPreviewParameter : PreviewParameterProvider<HomeContract.
     override val values = sequenceOf(
         HomeContract.UiState(
             subjects = getSubjects(),
-            cachedCurrentVideo = null,
+            catFacts = emptyList()
         ),
     )
 

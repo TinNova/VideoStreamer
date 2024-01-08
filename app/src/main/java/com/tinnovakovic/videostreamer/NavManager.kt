@@ -9,10 +9,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
  */
 class NavManager {
 
-    // The commands reference can be used by an outside class to observe the triggered NavCommands
+    // The commands reference can be observed where the NavHost is initialised in order to facilitate the navigation
     var commands: MutableStateFlow<NavCommand> = MutableStateFlow(value = Default)
 
-    // The navigate function can be used to trigger the navigation based on the provided NavCommand
+    // The navigate function can be used to trigger a navigation from a ViewModel
     fun navigate(
         directions: NavCommand
     ) {

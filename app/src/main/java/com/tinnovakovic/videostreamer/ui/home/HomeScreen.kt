@@ -1,24 +1,33 @@
 package com.tinnovakovic.videostreamer.ui.home
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tinnovakovic.videostreamer.composables.UiElement.CircularItem
+import com.tinnovakovic.videostreamer.data.models.CatFact
 import com.tinnovakovic.videostreamer.data.models.Subject
 import com.tinnovakovic.videostreamer.ui.home.HomeContract.*
 import com.tinnovakovic.videostreamer.ui.home.preview.HomeScreenContentPreviewParameter
@@ -41,33 +50,67 @@ fun HomeScreenContent(
 ) {
 
     Scaffold { paddingValues ->
-        Column(modifier = Modifier.padding(paddingValues)) {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(4),
+            modifier = Modifier
+                .padding(paddingValues),
+        ) {
             CircularProfileImageList(uiState.subjects, uiAction)
+            ListOfCatFacts(uiState.catFacts, uiAction)
         }
     }
 }
 
-@Composable
-fun CircularProfileImageList(
+
+fun LazyGridScope.CircularProfileImageList(
     subjects: List<Subject>,
     uiAction: (UiEvents) -> Unit,
 ) {
-    LazyVerticalGrid(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        columns = GridCells.Adaptive(minSize = 64.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        items(subjects) { subject ->
-            CircularItem(
-                googleIcon = Icons.Default.Add,
-                text = subject.title,
-                onClick = {
-                    uiAction(UiEvents.SubjectClicked(subject))
+
+    items(count = subjects.size) { i ->
+        CircularItem(
+            Modifier.padding(vertical = 16.dp),
+            googleIcon = Icons.Default.Add,
+            text = subjects[i].title,
+            onClick = {
+                uiAction(UiEvents.SubjectClicked(subjects[i]))
+            }
+        )
+    }
+}
+
+fun LazyGridScope.ListOfCatFacts(
+    catFacts: List<CatFact>,
+    uiAction: (UiEvents) -> Unit
+) {
+    items(span = { GridItemSpan(4) }, count = catFacts.size) { i ->
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .padding(vertical = 16.dp)
+                .clickable {
+                    uiAction(UiEvents.CatFactClicked(catFacts[i], i))
                 }
-            )
+        ) {
+            Text(text = catFacts[i].fact, Modifier.weight(0.8f))
+
+            if (catFacts[i].isSelected) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = null,
+                    tint = Color.Green,
+                    modifier = Modifier
+                        .size(32.dp)
+                        .weight(0.2f)
+                )
+            } else {
+                Spacer(
+                    Modifier
+                        .width(64.dp)
+                        .weight(0.2f)
+                )
+            }
         }
     }
 }

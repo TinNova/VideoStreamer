@@ -21,7 +21,7 @@ object ApiModule {
     @Singleton
     fun providesRetrofit(okHttpClient: OkHttpClient.Builder, gsonConverterFactory: GsonConverterFactory): TemplateApi {
         return Retrofit.Builder()
-            .baseUrl("templateApi")
+            .baseUrl("https://cat-fact.herokuapp.com/")
             .client(
                 okHttpClient
                     .build()
